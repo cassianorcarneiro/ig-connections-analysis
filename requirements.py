@@ -1,8 +1,8 @@
-# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
-# INSTAGRAM CONNECTION ANALYSIS
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# PRIVATE AI AGENT
 # CASSIANO RIBEIRO CARNEIRO
-# VERSION: 11/26/2025
-# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+# V1
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 # Importing frameworks
 
@@ -11,9 +11,9 @@ import subprocess
 import sys
 import os
 
-# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Install required frameworks
-# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 def install_libraries():
 
@@ -27,7 +27,7 @@ def install_libraries():
             print("pandas_ta folder not found at:", pandas_ta_path)
             return
 
-        fixed_files = 0
+        fixed = 0
         for root, _, files in os.walk(pandas_ta_path):
             for f in files:
                 if f.endswith(".py"):
@@ -42,14 +42,16 @@ def install_libraries():
                         with open(file_path, "w", encoding="utf-8") as file:
                             file.write(new_content)
                         print(f"Fixed in: {file_path}")
-                        fixed_files += 1
+                        fixed += 1
 
-        if fixed_files == 0:
+        if fixed == 0:
             print("No occurrences found to fix.")
         else:
-            print(f"Total files fixed: {fixed_files}")
+            print(f"Total files fixed: {fixed}")
 
+            
     def install_if_needed(package, pip_name=None):
+        
         try:
             importlib.import_module(package)
         except ImportError:
@@ -59,7 +61,7 @@ def install_libraries():
             )
 
     # List of packages to install: (import name, pip name if different)
-
+    
     libraries = [
         ('json',),
         ('pandas',),
