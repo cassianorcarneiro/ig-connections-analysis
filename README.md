@@ -22,6 +22,11 @@ A Python-based tool that processes Instagram follower data to identify accounts 
 16. Enter your password and wait for the process to complete
 17. Once finished, download the compressed file
 18. Extract the file and move the **connections** folder to the project root directory
-19. In VS Code, run the `requirements.py` file
+19. Install requirements
+
+```bash
+pip install -r requirements.txt
+```
+
 20. Run the `ig_connections_analysis.py` file
 21. Open the result in the spreadsheet generated in the project root directory
