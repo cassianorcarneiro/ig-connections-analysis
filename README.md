@@ -30,3 +30,7 @@ pip install -r requirements.txt
 
 20. Run the `ig_connections_analysis.py` file
 21. Open the result in the spreadsheet generated in the project root directory
+
+---
+### AI Assistance Disclosure
+The codebase architecture, organizational structure, and stylistic formatting of this repository were refactored and optimized leveraging [Claude](https://www.anthropic.com/claude) by Anthropic. All core business logic and intellectual property remain the work of the repository authors and are governed by the project's license.
