@@ -1,7 +1,7 @@
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# Analysis of Connections on Instagram
+# ANALYSIS OF CONNECTIONS ON INSTAGRAM
+# REPOSITORY: https://github.com/cassianorcarneiro/ig-connections-analysis
 # CASSIANO RIBEIRO CARNEIRO
-# VERSION: 26/11/2025
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 # Framework imports
