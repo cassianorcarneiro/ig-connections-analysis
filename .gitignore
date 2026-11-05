@@ -9,12 +9,13 @@ __pycache__/
 # IDE
 .vs/
 .vscode/
+.idea/
 
 # OS
 Thumbs.db
 .DS_Store
 
-# Data folder
+# Data folder (personal data)
 /connections
 
 # Result file
