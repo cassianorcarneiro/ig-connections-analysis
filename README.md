@@ -1,62 +1,59 @@
-# 📷 Instagram Connections Analysis
+# Instagram Connections Analysis
 
-> Find out which Instagram accounts you follow that don't follow you back.
+Find the Instagram accounts you follow that do not follow you back. Runs offline on your own data export.
 
-A Python-based tool that processes your exported Instagram connection data and generates a spreadsheet of non-reciprocal follows — with clickable profile links, and no third-party services involved.
+![Python](https://img.shields.io/badge/python-3.9%2B-3776AB?logo=python&logoColor=white)
+![pandas](https://img.shields.io/badge/pandas-150458?logo=pandas&logoColor=white)
+![Privacy](https://img.shields.io/badge/privacy-offline-success)
+![License](https://img.shields.io/badge/license-MIT-green)
 
-<p align="center">
-  <img alt="Stack" src="https://img.shields.io/badge/Stack-Python%20%2B%20Pandas-blue?style=for-the-badge">
-  <img alt="License" src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge">
-  <img alt="Privacy" src="https://img.shields.io/badge/Privacy-Local%20Only-success?style=for-the-badge">
-</p>
+## Overview
 
----
+The script reads the follower and following lists from an Instagram data export. It computes the set difference *following − followers* and writes the result to a spreadsheet with clickable profile links. It makes no network requests and uses no Instagram API or third-party service.
 
-## 📦 Features
+## Features
 
-- 🔍 **Reciprocity analysis** — identifies accounts you follow that don't follow you back
-- 📊 **Spreadsheet output** — XLSX with clickable links, filters and frozen header
-- 🔒 **100% local** — works on your exported data; no Instagram API, no network access
-- ⚡ **Lightweight** — runs in seconds, even for thousands of connections
+- **Reciprocity analysis.** Lists accounts you follow that do not follow you back.
+- **Spreadsheet output.** XLSX with clickable links, column filters and a frozen header.
+- **Fully local.** No API keys, no login, no network access.
+- **Fast.** Thousands of connections process in seconds.
 
----
+## How it works
 
-## 📋 Prerequisites
+```mermaid
+flowchart LR
+    E["Instagram export<br/>(JSON)"] --> F["followers_*.json"]
+    E --> G["following.json"]
+    F --> D["following − followers"]
+    G --> D
+    D --> X["not_following_back.xlsx"]
+```
 
-- **Python 3.9+**
-- An Instagram account (to export your data from)
-- A few minutes — Instagram takes some time to prepare the export
+Large accounts get their followers split across several files (`followers_1.json`, `followers_2.json`, …). The script reads all of them.
 
----
+## Requirements
 
-## 🚀 Quick start
+- Python 3.9+
+- An Instagram account to export data from
 
-The flow is: **export your data from Instagram → drop it in the project folder → run the script → open the spreadsheet**.
+## Getting started
 
-### Step 1 — Request your data from Instagram
+### 1. Request your data from Instagram
 
-1. Open Instagram on your phone
-2. Go to **your profile**
-3. Open **Settings** (three lines in the top-right corner)
-4. Open **Accounts Center**
-5. Open **Your information and permissions**
-6. Click **Export your information**
-7. Click **Create export**
-8. Select the account
-9. Select **Export to device**
-10. Click **Customize information**
-11. Uncheck everything, leaving only **Followers and following** under the **Connections** section
-12. Click **Save**
-13. Under **Format**, select **JSON**
-14. Under **Date range**, select **All time**
-15. Click **Start export**
-16. Enter your password and wait — Instagram emails you when it's ready (usually a few minutes to a few hours)
+Instagram's menu labels change over time. The path below was current at the time of writing.
 
-### Step 2 — Place the export in the project
+1. In the app, open your profile, then the menu (top right).
+2. Go to **Accounts Center → Your information and permissions → Export your information**.
+3. Tap **Create export**, select the account, then **Export to device**.
+4. Tap **Customize information**. Uncheck everything except **Followers and following**, under **Connections**.
+5. Set **Format** to **JSON** and **Date range** to **All time**.
+6. Tap **Start export** and confirm with your password.
 
-1. Download the `.zip` file Instagram sent you
-2. Extract it
-3. Move the `connections/` folder into the project root:
+Instagram emails you when the export is ready. This takes from a few minutes to a few hours.
+
+### 2. Add the export to the project
+
+Download and extract the `.zip`. Move its `connections/` folder into the project root:
 
 ```
 ig-connections-analysis/
@@ -64,31 +61,29 @@ ig-connections-analysis/
 ├── requirements.txt
 └── connections/
     └── followers_and_following/
-        ├── followers_1.json      # large accounts also have followers_2.json, ...
+        ├── followers_1.json
         └── following.json
 ```
 
-### Step 3 — Install dependencies
+### 3. Install dependencies
 
 ```bash
 python -m venv .venv
-# Windows: .venv\Scripts\activate   |   Linux/macOS: source .venv/bin/activate
+source .venv/bin/activate        # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### Step 4 — Run the analysis
+### 4. Run
 
 ```bash
 python ig_connections_analysis.py
 ```
 
-The script can be run from any directory; paths are resolved relative to the script itself.
+Paths are resolved relative to the script, so it can run from any working directory.
 
----
+## Output
 
-## 📊 Output
-
-`not_following_back.xlsx`, with one row per account you follow that doesn't follow you back:
+`not_following_back.xlsx` has one row per non-reciprocal follow:
 
 | Column | Description |
 |---|---|
@@ -96,64 +91,45 @@ The script can be run from any directory; paths are resolved relative to the scr
 | `profile_url` | Clickable link to the profile |
 | `followed_since` | When you started following the account (UTC) |
 
-The sheet has a frozen header and column filters.
+## Privacy
 
-### Limitations
+- Your data stays on your machine. The script makes no network requests.
+- `connections/` and the output file are git-ignored.
+- The output lists other people's usernames. Share it only if you choose to.
 
-- The export is a snapshot. Accounts that followed you after the export date still appear in the list. Request a fresh export before a cleanup session.
-- Links of accounts that were deleted, deactivated or renamed open Instagram's "page not available" screen. Deleted accounts are removed from your following list by Instagram itself, so they need no action.
+## Limitations
 
----
+- **The export is a snapshot.** Accounts that followed you after the export date still appear. Request a fresh export before a cleanup session.
+- **Stale links.** Deleted, deactivated or renamed accounts open Instagram's "page not available" screen. Instagram removes deleted accounts from your following list on its own.
 
-## 📁 Project structure
+## Project structure
 
 ```
 ig-connections-analysis/
-├── ig_connections_analysis.py    # Main script
+├── ig_connections_analysis.py   # Main script
 ├── requirements.txt
-├── README.md
+├── connections/                 # Your Instagram export (git-ignored)
+├── not_following_back.xlsx      # Output (git-ignored)
 ├── LICENSE
-├── connections/                  # ← drop your Instagram export here (git-ignored)
-│   └── followers_and_following/
-│       ├── followers_*.json
-│       └── following.json
-└── not_following_back.xlsx       # Output (git-ignored)
+└── README.md
 ```
 
----
+## Roadmap
 
-## 🔐 Privacy
+- [ ] CLI flags for input and output paths
+- [ ] Optional CSV output
+- [ ] Mutual-follow detection with a Venn diagram
+- [ ] Support for the "close friends", "blocked" and "muted" lists in the same export
+- [ ] Installable package on PyPI
 
-- ✅ Your Instagram data stays on your machine — the script makes no network requests
-- ✅ No API keys, no authentication, no remote services
-- ✅ The output spreadsheet is local and git-ignored; share it only if you choose to
+## License
 
----
+Released under the [MIT License](LICENSE).
 
-## 🛣️ Roadmap
+## Author
 
-- [ ] CLI flags for custom input/output paths
-- [ ] Optional CSV output (in addition to XLSX)
-- [ ] Detect mutual follows + visualize as a Venn diagram
-- [ ] Support for "close friends" / "blocked" / "muted" lists from the same export
-- [ ] Pip-installable package
+**Cassiano Ribeiro Carneiro** · [@cassianorcarneiro](https://github.com/cassianorcarneiro)
 
----
+## AI assistance
 
-## 📜 License
-
-MIT — see `LICENSE` file.
-
-## 👤 Author
-
-**Cassiano Ribeiro Carneiro** — [@cassianorcarneiro](https://github.com/cassianorcarneiro)
-
----
-
-### 🤖 AI Assistance Disclosure
-
-The codebase architecture, organizational structure, and stylistic formatting of this repository were refactored and optimized leveraging [Claude](https://www.anthropic.com/claude) by Anthropic. All core business logic and intellectual property remain the work of the repository authors and are governed by the project's license.
-
----
-
-> *Curiosity about your Instagram followers, satisfied without selling your data to a sketchy third-party tool.*
+Claude (Anthropic) was used to refactor the structure and formatting of this repository. The core logic is the author's own work.
